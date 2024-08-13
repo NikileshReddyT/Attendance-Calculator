@@ -11,12 +11,23 @@ function calculateAttendance() {
     .value.split(" ")
     .map(Number);
 
+  // Validation checks
+  if (
+    isNaN(desiredPercentage) ||
+    desiredPercentage < 0 ||
+    desiredPercentage > 100
+  ) {
+    document.getElementById("result").innerText =
+      "Please enter a valid desired percentage (0-100).";
+    return;
+  }
+
   const totalConducted = conductedClasses.reduce((acc, cur) => acc + cur, 0);
   const totalAttended = attendedClasses.reduce((acc, cur) => acc + cur, 0);
 
   if (totalAttended > totalConducted) {
     document.getElementById("result").innerText =
-      "Don't lie... please check the details properly";
+      "Attended classes cannot exceed conducted classes. Please check the details.";
     return;
   }
 
@@ -26,7 +37,9 @@ function calculateAttendance() {
   let initialPercentage = presentPercentage;
   let x = 0;
   let y = 0;
+  let numerator, denominator;
 
+  // Calculate the number of additional classes needed to achieve the desired percentage
   while (presentPercentage < desiredPercentage) {
     x++;
     presentPercentage = parseFloat(
@@ -34,7 +47,12 @@ function calculateAttendance() {
     );
   }
 
+  numerator = totalAttended + x;
+  denominator = totalConducted + x;
+
   presentPercentage = initialPercentage;
+
+  // Calculate the number of classes that can be missed while maintaining the desired percentage
   while (presentPercentage > desiredPercentage) {
     let tempPercentage = parseFloat(
       ((totalAttended / (totalConducted + (y + 1))) * 100).toFixed(2)
@@ -46,17 +64,26 @@ function calculateAttendance() {
     y++;
   }
 
+  // Formatting the result message
   if (initialPercentage === desiredPercentage) {
     document.getElementById(
       "result"
     ).innerText = `You have the correct percentage of ${desiredPercentage}%. Please maintain this.`;
-  } else if (y === 0) {
+  } else if (x === 0 && y === 0) {
     document.getElementById(
       "result"
-    ).innerText = `Your current percentage is ${initialPercentage}%.\nYou need to attend ${x} more classes(50 min) to achieve ${desiredPercentage}%.`;
-  } else {
+    ).innerText = `Your current percentage is ${totalAttended} / ${totalConducted} = ${initialPercentage}%.\n\nNo further action is required to meet the desired percentage.`;
+  } else if (x > 0) {
     document.getElementById(
       "result"
-    ).innerText = `Your current percentage is ${initialPercentage}%.\nYou can miss ${y} more classes(50 min) and still maintain a percentage of ${desiredPercentage}%.`;
+    ).innerText = `Your current percentage is ${totalAttended} / ${totalConducted} = ${initialPercentage}%.\n\nTo achieve ${desiredPercentage}%, you need to attend ${x} more classes.\n\nAfter this, your percentage will be ${parseFloat(
+      ((numerator / denominator) * 100).toFixed(2)
+    )}% (${numerator}/${denominator}).`;
+  } else if (y > 0) {
+    document.getElementById(
+      "result"
+    ).innerText = `Your current percentage is ${totalAttended} / ${totalConducted} = ${initialPercentage}%.\n\nYou can miss ${y} more classes and still maintain a percentage of ${desiredPercentage}%.\n\nAfter missing these classes, your percentage will be ${parseFloat(
+      ((totalAttended / (totalConducted + y)) * 100).toFixed(2)
+    )}% (${totalAttended}/${totalConducted + y}).`;
   }
 }
