@@ -1,17 +1,16 @@
-/* styles.css */
-
 body {
     font-family: 'Helvetica Neue', sans-serif;
-    background: linear-gradient(135deg, #2c3e50, #4e555b, #95a5a6, #bdc3c7);
+    background: linear-gradient(135deg, #2c3e50, #4e555b, #b2bdbe, #bdc3c7);
     background-size: 400% 400%;
     animation: gradientBackground 15s ease infinite;
     margin: 0;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
 }
+/* background: linear-gradient(135deg, #2c3e50, #4e555b, #95a5a6, #bdc3c7); */
+
 
 @keyframes gradientBackground {
     0% { background-position: 0% 50%; }
@@ -25,7 +24,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     max-width: 400px;
-    width: 100%;
+    width: 90%;
 }
 
 h1 {
@@ -87,66 +86,4 @@ button:hover {
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* Media Queries */
-@media (max-width: 768px) {
-    h1 {
-        font-size: 22px;
-    }
-
-    button {
-        font-size: 15px;
-        padding: 10px;
-    }
-
-    #result {
-        font-size: 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 20px;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    }
-
-    h1 {
-        font-size: 20px;
-    }
-
-    label {
-        font-size: 13px;
-    }
-
-    input[type="text"] {
-        padding: 8px;
-        font-size: 13px;
-    }
-
-    button {
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    #result {
-        font-size: 14px;
-        padding: 12px;
-    }
-}
-
-@media (max-width: 360px) {
-    h1 {
-        font-size: 18px;
-    }
-
-    label {
-        font-size: 12px;
-    }
-
-    button {
-        font-size: 13px;
-    }
-
-    #result {
-        font-size: 13px;
-    }
-}
+    </style>
