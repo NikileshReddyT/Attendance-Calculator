@@ -1,8 +1,8 @@
 body {
     font-family: 'Helvetica Neue', sans-serif;
-    background: linear-gradient(135deg, #2c3e50, #4e555b, #b2bdbe, #bdc3c7);
+    background: linear-gradient(135deg, #2c3e50, #4e555b, #95a5a6, #bdc3c7);
     background-size: 400% 400%;
-    animation: gradientBackground 15s ease infinite;
+    animation: gradientBackground 25s ease infinite;
     margin: 0;
     height: 100vh;
     display: flex;
