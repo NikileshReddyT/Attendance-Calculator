@@ -76,13 +76,13 @@ function calculateAttendance() {
   } else if (x > 0) {
     document.getElementById(
       "result"
-    ).innerText = `Your current percentage is ${totalAttended} / ${totalConducted} = ${initialPercentage}%.\n\nTo achieve ${desiredPercentage}%, you need to attend ${x} more classes.\n\nAfter this, your percentage will be ${parseFloat(
+    ).innerText = `Your current percentage is ${totalAttended} / ${totalConducted} = ${initialPercentage}%.\n\nTo achieve ${desiredPercentage}%, you need to attend ${x} more classes (50 min).\n\nAfter this, your percentage will be ${parseFloat(
       ((numerator / denominator) * 100).toFixed(2)
     )}% (${numerator}/${denominator}).`;
   } else if (y > 0) {
     document.getElementById(
       "result"
-    ).innerText = `Your current percentage is ${totalAttended} / ${totalConducted} = ${initialPercentage}%.\n\nYou can miss ${y} more classes and still maintain a percentage of ${desiredPercentage}%.\n\nAfter missing these classes, your percentage will be ${parseFloat(
+    ).innerText = `Your current percentage is ${totalAttended} / ${totalConducted} = ${initialPercentage}%.\n\nYou can miss ${y} more classes (50 min) and still maintain a percentage of ${desiredPercentage}%.\n\nAfter missing these classes, your percentage will be ${parseFloat(
       ((totalAttended / (totalConducted + y)) * 100).toFixed(2)
     )}% (${totalAttended}/${totalConducted + y}).`;
   }
