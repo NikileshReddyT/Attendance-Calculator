@@ -34,7 +34,7 @@ function calculateAttendance() {
   let presentPercentage = parseFloat(
     ((totalAttended / totalConducted) * 100).toFixed(2)
   );
-  let initialPercentage = presentPercentage;
+  const initialPercentage = presentPercentage;
   let x = 0;
   let y = 0;
   let numerator, denominator;
@@ -50,11 +50,12 @@ function calculateAttendance() {
   numerator = totalAttended + x;
   denominator = totalConducted + x;
 
+  // Reset presentPercentage to the initial value
   presentPercentage = initialPercentage;
 
   // Calculate the number of classes that can be missed while maintaining the desired percentage
   while (presentPercentage > desiredPercentage) {
-    let tempPercentage = parseFloat(
+    const tempPercentage = parseFloat(
       ((totalAttended / (totalConducted + (y + 1))) * 100).toFixed(2)
     );
     if (tempPercentage < desiredPercentage) {
@@ -65,25 +66,21 @@ function calculateAttendance() {
   }
 
   // Formatting the result message
+  let resultMessage = `Your current percentage =<span class="percentage">${initialPercentage}%</span>(${totalAttended} / ${totalConducted}).<br><br>`;
+
   if (initialPercentage === desiredPercentage) {
-    document.getElementById(
-      "result"
-    ).innerText = `You have the correct percentage of ${desiredPercentage}%. Please maintain this.`;
-  } else if (x === 0 && y === 0) {
-    document.getElementById(
-      "result"
-    ).innerText = `Your current percentage is ${totalAttended} / ${totalConducted} = ${initialPercentage}%.\n\nNo further action is required to meet the desired percentage.`;
+    resultMessage += `You have the correct percentage of <span class="percentage">${desiredPercentage}%</span>. Please maintain this.`;
   } else if (x > 0) {
-    document.getElementById(
-      "result"
-    ).innerText = `Your current percentage is ${totalAttended} / ${totalConducted} = ${initialPercentage}%.\n\nTo achieve ${desiredPercentage}%, you need to attend ${x} more classes (50 min).\n\nAfter this, your percentage will be ${parseFloat(
+    resultMessage += `To achieve <span class="important-info">${desiredPercentage}%</span>, you need to <span class="class-count">Attend ${x} More Classes (50 min)</span>.<br><br>After attending <span class="class-count">${x} Classes</span>, your percentage will be<span class="percentage">${parseFloat(
       ((numerator / denominator) * 100).toFixed(2)
-    )}% (${numerator}/${denominator}).`;
+    )}%</span> (${numerator} / ${denominator}).`;
   } else if (y > 0) {
-    document.getElementById(
-      "result"
-    ).innerText = `Your current percentage is ${totalAttended} / ${totalConducted} = ${initialPercentage}%.\n\nYou can miss ${y} more classes (50 min) and still maintain a percentage of ${desiredPercentage}%.\n\nAfter missing these classes, your percentage will be ${parseFloat(
+    resultMessage += `You can <span class="class-count">Bunk ${y} More Classes (50 min)</span> and still maintain a percentage of <span class="important-info">${desiredPercentage}%</span>.<br><br>After missing <span class="class-count">${y} Classes</span>, your percentage will be<span class="percentage">${parseFloat(
       ((totalAttended / (totalConducted + y)) * 100).toFixed(2)
-    )}% (${totalAttended}/${totalConducted + y}).`;
+    )}%</span> (${totalAttended} / ${totalConducted + y}).`;
+  } else {
+    resultMessage += `No further action is required to meet the desired percentage.`;
   }
+
+  document.getElementById("result").innerHTML = resultMessage;
 }
